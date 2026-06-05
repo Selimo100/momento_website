@@ -1,6 +1,5 @@
 import UseCaseCard from '../components/UseCaseCard'
 import SectionHeader from '../components/SectionHeader'
-import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const cases = [
   {
@@ -25,7 +24,7 @@ const cases = [
   },
   {
     title: 'Pets',
-    description: 'Document your pet\'s life in curated moments — milestones, moods and personality.',
+    description: "Document your pet's life in curated moments — milestones, moods and personality.",
     gradient: 'bg-gradient-to-r from-lime-300 to-green-400',
   },
   {
@@ -46,23 +45,19 @@ const cases = [
 ]
 
 export default function UseCases() {
-  const headerRef = useScrollReveal<HTMLDivElement>()
-
   return (
     <section
       id="use-cases"
       className="py-24 md:py-32"
-      style={{ background: 'linear-gradient(180deg, #eef6f4 0%, #f8faf9 100%)' }}
+      style={{ background: 'var(--alt-section-bg)' }}
       aria-labelledby="use-cases-heading"
     >
       <div className="max-w-6xl mx-auto px-5 md:px-8">
-        <div ref={headerRef}>
-          <SectionHeader
-            eyebrow="Use cases"
-            title="Made for real memories"
-            subtitle="Whatever moment matters to you, Momento gives it the space it deserves."
-          />
-        </div>
+        <SectionHeader
+          eyebrow="Use cases"
+          title="Made for real memories"
+          subtitle="Whatever moment matters to you, Momento gives it the space it deserves."
+        />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {cases.map((c, i) => (
@@ -71,7 +66,7 @@ export default function UseCases() {
               title={c.title}
               description={c.description}
               gradient={c.gradient}
-              delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+              index={i}
             />
           ))}
         </div>

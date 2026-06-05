@@ -1,4 +1,6 @@
 import { createHashRouter, RouterProvider, Outlet, ScrollRestoration } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
@@ -7,7 +9,7 @@ import SupportPage from './pages/SupportPage'
 
 function Layout() {
   return (
-    <>
+    <ThemeProvider>
       <ScrollRestoration />
       <a
         href="#main-content"
@@ -16,9 +18,11 @@ function Layout() {
         Skip to content
       </a>
       <Navbar />
-      <Outlet />
+      <AnimatePresence mode="wait">
+        <Outlet />
+      </AnimatePresence>
       <Footer />
-    </>
+    </ThemeProvider>
   )
 }
 

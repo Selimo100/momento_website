@@ -10,7 +10,6 @@ import {
 } from 'lucide-react'
 import FeatureCard from '../components/FeatureCard'
 import SectionHeader from '../components/SectionHeader'
-import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const features = [
   {
@@ -63,34 +62,27 @@ const features = [
 ]
 
 export default function Features() {
-  const headerRef = useScrollReveal<HTMLDivElement>()
-
   return (
     <section
       id="features"
-      className="py-24 md:py-32 bg-white"
+      className="py-24 md:py-32 bg-white dark:bg-[#0b0e16]"
       aria-labelledby="features-heading"
     >
       <div className="max-w-6xl mx-auto px-5 md:px-8">
-        <div ref={headerRef}>
-          <SectionHeader
-            eyebrow="Features"
-            title="Everything a memory deserves"
-            subtitle="Each feature in Momento is built around one idea: make your memories feel intentional, complete and worth revisiting."
-          />
-        </div>
+        <SectionHeader
+          eyebrow="Features"
+          title="Everything a memory deserves"
+          subtitle="Each feature in Momento is built around one idea: make your memories feel intentional, complete and worth revisiting."
+        />
 
-        <div
-          id="features-grid"
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((feature, i) => (
             <FeatureCard
               key={feature.title}
               icon={feature.icon}
               title={feature.title}
               description={feature.description}
-              delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+              index={i}
             />
           ))}
         </div>
