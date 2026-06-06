@@ -4,6 +4,7 @@ import { Menu, X, Sun, Moon } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrolled } from '../hooks/useScrolled'
 import { useTheme } from '../contexts/ThemeContext'
+import momentoIcon from '../assets/momento_icon.png'
 
 function Logo() {
   return (
@@ -12,9 +13,11 @@ function Logo() {
       className="flex items-center gap-2.5 group"
       aria-label="Momento home"
     >
-      <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-        <span className="text-white font-bold text-base leading-none select-none">M</span>
-      </div>
+      <img
+        src={momentoIcon}
+        alt="Momento"
+        className="w-8 h-8 rounded-xl shadow-sm group-hover:shadow-md transition-shadow"
+      />
       <span className="font-semibold text-gray-900 dark:text-white text-[15px] tracking-tight">
         Momento
       </span>

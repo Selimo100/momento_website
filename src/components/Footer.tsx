@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import momentoIcon from '../assets/momento_icon.png'
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -12,9 +13,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-                <span className="text-white font-bold text-base leading-none">M</span>
-              </div>
+              <img src={momentoIcon} alt="Momento" className="w-8 h-8 rounded-xl" />
               <span className="font-semibold text-white text-[15px]">Momento</span>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
