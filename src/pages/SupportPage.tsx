@@ -25,23 +25,29 @@ const faqs = [
   },
 ]
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
+function FAQItem({ question, answer, index }: { question: string; answer: string; index: number }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="border-b border-gray-100 dark:border-white/[0.06] last:border-0">
+    <div style={{ borderTop: '1px solid var(--s-line)' }}>
       <button
-        className="w-full flex items-center justify-between py-5 text-left gap-4 text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg cursor-pointer"
+        className="w-full flex items-center justify-between py-6 text-left gap-6 cursor-pointer group"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        <span className="text-[15px] font-medium">{question}</span>
-        <motion.div
+        <span className="flex items-center gap-3">
+          <span className="mono text-micro text-ink-3">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span className="text-body-sm text-ink">{question}</span>
+        </span>
+        <motion.span
           animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
+          className="flex"
         >
-          <ChevronDown size={16} className="text-gray-400 flex-shrink-0" />
-        </motion.div>
+          <ChevronDown size={16} className="text-ink-3 shrink-0" />
+        </motion.span>
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -49,12 +55,10 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
             className="overflow-hidden"
           >
-            <div className="pb-5 pr-8">
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{answer}</p>
-            </div>
+            <p className="pb-6 pl-9 text-micro text-ink-2 leading-[1.5] max-w-[64ch]">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -68,75 +72,74 @@ export default function SupportPage() {
   }, [])
 
   return (
-    <main className="pt-28 pb-24 min-h-screen bg-surface dark:bg-[#0b0e16]">
-      <div className="max-w-3xl mx-auto px-5 md:px-8">
+    <main className="pt-[120px] pb-24 min-h-screen bg-canvas">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-14"
+          transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+          className="mb-24"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-accent dark:bg-primary/10 border border-primary/20 mb-5">
-            <Mail size={13} className="text-primary" />
-            <span className="text-xs font-semibold text-primary">Support</span>
+          <div className="flex items-center gap-3 mb-12">
+            <span className="tag">
+              <span className="accent-dot" style={{ width: 6, height: 6 }} />
+              Support
+            </span>
+            <span className="rule flex-1" />
+            <span className="mono text-micro text-ink-3">Reply in 1–2 days</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-50 tracking-tight mb-4">
+
+          <h1
+            className="display display-fade max-w-[14ch]"
+            style={{ fontSize: 'clamp(56px, 9vw, 128px)' }}
+          >
             We are here to help
           </h1>
-          <p className="text-lg text-gray-500 dark:text-gray-400 leading-relaxed">
+          <p className="mt-12 text-body-sm md:text-body text-ink-2 max-w-[56ch]">
             Have a question about Momento? Get in touch or browse the answers below.
           </p>
         </motion.div>
 
-        {/* Contact card */}
+        {/* Contact */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-2xl p-6 border mb-12 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(160,193,185,0.10) 0%, rgba(160,193,185,0.04) 100%)',
-            borderColor: 'rgba(160,193,185,0.3)',
-          }}
+          transition={{ delay: 0.1, duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+          className="panel p-6 mb-24 grid gap-6 md:grid-cols-[1fr_auto] md:items-center"
         >
-          <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-            <Mail size={20} className="text-primary" strokeWidth={1.75} />
-          </div>
-          <div>
-            <p className="text-[15px] font-semibold text-gray-800 dark:text-gray-200 mb-1">
+          <div className="flex flex-col gap-1.5">
+            <span className="mono text-micro text-ink-3 flex items-center gap-3">
+              <Mail size={14} strokeWidth={1.75} />
               Send us an email
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+            </span>
+            <p className="text-body-sm text-ink-2 max-w-[52ch]">
               We read every message and try to reply within 1–2 business days.
             </p>
-            <a
-              href="mailto:selimo.contact@gmail.com"
-              className="text-sm font-medium text-primary hover:underline"
-            >
-              selimo.contact@gmail.com
-            </a>
           </div>
+          <a href="mailto:selimo.contact@gmail.com" className="pill pill-solid justify-self-start">
+            <span className="text-micro opacity-60">+</span>
+            selimo.contact@gmail.com
+          </a>
         </motion.div>
 
         {/* FAQ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.2, duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
         >
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-1 tracking-tight">
-            Frequently asked questions
-          </h2>
-          <p className="text-sm text-gray-400 dark:text-gray-500 mb-6">
-            Common questions about how Momento works.
-          </p>
+          <div className="flex items-center gap-3 mb-12">
+            <h2 className="display display-fade" style={{ fontSize: 'clamp(36px, 5vw, 60px)' }}>
+              Frequently asked questions
+            </h2>
+            <span className="rule flex-1" />
+            <span className="mono text-micro text-ink-3">{String(faqs.length).padStart(2, '0')}</span>
+          </div>
 
-          <div className="bg-white dark:bg-[#141820] rounded-2xl border border-gray-100 dark:border-white/[0.06] px-6"
-            style={{ boxShadow: 'var(--card-shadow)' }}>
-            {faqs.map((faq) => (
-              <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
+          <div>
+            {faqs.map((faq, i) => (
+              <FAQItem key={faq.question} question={faq.question} answer={faq.answer} index={i} />
             ))}
           </div>
         </motion.div>

@@ -4,11 +4,14 @@ import { motion, useInView } from 'framer-motion'
 interface UseCaseCardProps {
   title: string
   description: string
-  gradient: string
+  /** Mono metadata label shown above the title */
+  label: string
   index: number
 }
 
-export default function UseCaseCard({ title, description, gradient, index }: UseCaseCardProps) {
+const entrance = [0.32, 0.72, 0, 1] as const
+
+export default function UseCaseCard({ title, description, label, index }: UseCaseCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const col = index % 4
@@ -16,27 +19,20 @@ export default function UseCaseCard({ title, description, gradient, index }: Use
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.55,
-        delay: col * 0.07,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      whileHover={{
-        y: -5,
-        transition: { type: 'spring', stiffness: 350, damping: 22 },
-      }}
-      className="group relative overflow-hidden rounded-2xl border border-gray-100 dark:border-white/[0.06] bg-white dark:bg-[#141820] cursor-default"
-      style={{ boxShadow: 'var(--card-shadow)' }}
+      transition={{ duration: 0.55, delay: col * 0.07, ease: entrance }}
+      whileHover={{ y: -2, transition: { duration: 0.3, ease: entrance } }}
+      className="group card p-6 cursor-default"
     >
-      <div className={`h-1.5 w-full ${gradient}`} />
-      <div className="p-5">
-        <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-[15px] mb-1.5 tracking-tight">
-          {title}
-        </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{description}</p>
+      <div className="flex items-center justify-between mb-6">
+        <span className="mono text-micro text-ink-3">{label}</span>
+        <span className="mono text-micro text-ink-3">
+          {String(index + 1).padStart(2, '0')}
+        </span>
       </div>
+      <h3 className="text-body-sm text-ink mb-1.5">{title}</h3>
+      <p className="text-micro text-ink-2 leading-[1.4]">{description}</p>
     </motion.div>
   )
 }

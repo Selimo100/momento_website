@@ -6,25 +6,6 @@ import { useScrolled } from '../hooks/useScrolled'
 import { useTheme } from '../contexts/ThemeContext'
 import momentoIcon from '../assets/momento_icon.png'
 
-function Logo() {
-  return (
-    <Link
-      to="/"
-      className="flex items-center gap-2.5 group"
-      aria-label="Momento home"
-    >
-      <img
-        src={momentoIcon}
-        alt="Momento"
-        className="w-8 h-8 rounded-xl shadow-sm group-hover:shadow-md transition-shadow"
-      />
-      <span className="font-semibold text-gray-900 dark:text-white text-[15px] tracking-tight">
-        Momento
-      </span>
-    </Link>
-  )
-}
-
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
@@ -36,9 +17,13 @@ export default function Navbar() {
   const location = useLocation()
   const isHome = location.pathname === '/'
 
+  /* On the home page the nav floats directly on the dark hero until scroll. */
+  const onDark = isHome && !scrolled && !menuOpen
+
   const navLinks = [
     {
       label: 'Features',
+      glyph: '+',
       action: () => {
         if (isHome) scrollTo('features')
         else {
@@ -49,6 +34,7 @@ export default function Navbar() {
     },
     {
       label: 'Use Cases',
+      glyph: '+',
       action: () => {
         if (isHome) scrollTo('use-cases')
         else {
@@ -57,103 +43,100 @@ export default function Navbar() {
         }
       },
     },
-    { label: 'Privacy', to: '/privacy' },
-    { label: 'Support', to: '/support' },
+    { label: 'Privacy', glyph: '•', to: '/privacy' },
+    { label: 'Support', glyph: '•', to: '/support' },
   ]
 
+  const pillClass = `pill cursor-pointer ${onDark ? 'pill-on-dark' : ''}`
+
   return (
-    <motion.header
-      initial={false}
-      animate={
-        scrolled || menuOpen
-          ? { backgroundColor: isDark ? 'rgba(11,14,22,0.92)' : 'rgba(255,255,255,0.92)' }
-          : { backgroundColor: 'rgba(0,0,0,0)' }
-      }
-      transition={{ duration: 0.25 }}
+    <header
       className="fixed top-0 left-0 right-0 z-50"
       style={{
-        backdropFilter: scrolled || menuOpen ? 'blur(20px)' : 'none',
-        WebkitBackdropFilter: scrolled || menuOpen ? 'blur(20px)' : 'none',
-        borderBottom: scrolled || menuOpen
-          ? isDark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.06)'
-          : 'none',
+        background: onDark ? 'transparent' : 'var(--s-canvas)',
+        borderBottom: onDark ? '1px solid transparent' : '1px solid var(--s-line)',
+        backdropFilter: onDark ? 'none' : 'blur(5px)',
+        WebkitBackdropFilter: onDark ? 'none' : 'blur(5px)',
+        transition:
+          'background-color 0.5s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.5s cubic-bezier(0.19, 1, 0.22, 1)',
       }}
     >
       <nav
-        className="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between"
+        className="max-w-[1200px] mx-auto px-6 md:px-12 h-[72px] flex items-center justify-between"
         aria-label="Main navigation"
       >
-        <Logo />
+        <Link to="/" className="flex items-center gap-3" aria-label="Momento home">
+          <img src={momentoIcon} alt="" className="w-6 h-6" />
+          <span
+            className="mono text-caption"
+            style={{ color: onDark ? '#ffffff' : 'var(--s-ink)' }}
+          >
+            Momento
+          </span>
+        </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1.5">
           {navLinks.map((link) =>
             link.to ? (
-              <Link
-                key={link.label}
-                to={link.to}
-                className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-              >
+              <Link key={link.label} to={link.to} className={pillClass}>
+                <span className="text-micro opacity-60">{link.glyph}</span>
                 {link.label}
               </Link>
             ) : (
-              <button
-                key={link.label}
-                onClick={link.action}
-                className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
-              >
+              <button key={link.label} onClick={link.action} className={pillClass}>
+                <span className="text-micro opacity-60">{link.glyph}</span>
                 {link.label}
               </button>
             )
           )}
 
-          {/* Dark mode toggle */}
           <button
             onClick={toggle}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="ml-2 w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
+            className={`${pillClass} w-[34px] h-[30px] justify-center !px-0`}
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
                 key={isDark ? 'sun' : 'moon'}
-                initial={{ opacity: 0, rotate: -30, scale: 0.8 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 30, scale: 0.8 }}
-                transition={{ duration: 0.18 }}
+                initial={{ opacity: 0, rotate: -30 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 30 }}
+                transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                className="flex"
               >
-                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+                {isDark ? <Sun size={14} /> : <Moon size={14} />}
               </motion.span>
             </AnimatePresence>
           </button>
 
-          <div className="ml-4 pl-4 border-l border-gray-200 dark:border-white/10">
-            <div className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary bg-surface-accent dark:bg-primary/10 rounded-full border border-primary/20 dark:border-primary/20">
-              <motion.div
-                className="w-1.5 h-1.5 rounded-full bg-primary"
-                animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              Coming soon for iOS
-            </div>
-          </div>
+          <span className={`pill ${onDark ? 'pill-on-dark' : ''} pointer-events-none`}>
+            <motion.span
+              className="accent-dot"
+              style={{ width: 6, height: 6 }}
+              animate={{ opacity: [1, 0.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            Soon on iOS
+          </span>
         </div>
 
         {/* Mobile right side */}
-        <div className="md:hidden flex items-center gap-2">
+        <div className="md:hidden flex items-center gap-1.5">
           <button
             onClick={toggle}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
+            className={`${pillClass} w-[34px] h-[30px] justify-center !px-0`}
           >
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            {isDark ? <Sun size={14} /> : <Moon size={14} />}
           </button>
           <button
-            className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+            className={`${pillClass} w-[34px] h-[30px] justify-center !px-0`}
             onClick={() => setMenuOpen((o) => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
       </nav>
@@ -162,24 +145,23 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden border-b border-gray-100 dark:border-white/07"
-            style={{
-              background: isDark ? 'rgba(11,14,22,0.97)' : 'rgba(255,255,255,0.97)',
-            }}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
+            className="md:hidden overflow-hidden bg-canvas"
+            style={{ borderTop: '1px solid var(--s-line)' }}
           >
-            <div className="px-5 pb-5 pt-1 flex flex-col gap-1">
+            <div className="px-6 py-12 flex flex-col items-start gap-6">
               {navLinks.map((link) =>
                 link.to ? (
                   <Link
                     key={link.label}
                     to={link.to}
-                    className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                    className="pill"
                     onClick={() => setMenuOpen(false)}
                   >
+                    <span className="text-micro opacity-60">{link.glyph}</span>
                     {link.label}
                   </Link>
                 ) : (
@@ -189,26 +171,21 @@ export default function Navbar() {
                       link.action?.()
                       setMenuOpen(false)
                     }}
-                    className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 text-left rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                    className="pill cursor-pointer"
                   >
+                    <span className="text-micro opacity-60">{link.glyph}</span>
                     {link.label}
                   </button>
                 )
               )}
-              <div className="mt-3 pt-3 border-t border-gray-100 dark:border-white/05">
-                <span className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary bg-surface-accent dark:bg-primary/10 rounded-full border border-primary/20">
-                  <motion.div
-                    className="w-1.5 h-1.5 rounded-full bg-primary"
-                    animate={{ opacity: [1, 0.3, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                  Coming soon for iOS
-                </span>
-              </div>
+              <span className="mono text-micro text-ink-3 flex items-center gap-1.5">
+                <span className="accent-dot" style={{ width: 6, height: 6 }} />
+                Soon on iOS
+              </span>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }

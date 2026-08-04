@@ -50,25 +50,17 @@ function ComingSoonCard({ icon: Icon, title, description, index, inView }: Comin
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.6,
-        delay: col * 0.08,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className="relative rounded-2xl bg-surface dark:bg-[#0f1219] p-6 border border-gray-100 dark:border-white/[0.05] overflow-hidden"
+      transition={{ duration: 0.6, delay: col * 0.08, ease: [0.32, 0.72, 0, 1] }}
+      className="card p-6 flex flex-col"
     >
-      <div className="absolute top-4 right-4">
-        <span className="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full border border-gray-200 dark:border-white/10 text-gray-400 bg-white dark:bg-white/5">
+      <div className="flex items-center justify-between mb-6">
+        <Icon size={18} className="text-ink-3" strokeWidth={1.75} />
+        <span className="tag-ghost" style={{ background: 'transparent', borderColor: 'var(--s-line-soft)', color: 'var(--s-ink-3)' }}>
           Soon
         </span>
       </div>
-      <div className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-white/5 flex items-center justify-center mb-4 border border-gray-100 dark:border-white/05">
-        <Icon size={18} className="text-gray-400 dark:text-gray-500" strokeWidth={1.75} />
-      </div>
-      <h3 className="font-semibold text-gray-700 dark:text-gray-300 text-[15px] mb-1.5 tracking-tight pr-12">
-        {title}
-      </h3>
-      <p className="text-sm text-gray-400 dark:text-gray-500 leading-relaxed">{description}</p>
+      <h3 className="text-body-sm text-ink-2 mb-1.5">{title}</h3>
+      <p className="text-micro text-ink-3 leading-[1.4]">{description}</p>
     </motion.div>
   )
 }
@@ -78,19 +70,17 @@ export default function ComingSoon() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section
-      className="py-24 md:py-32 bg-white dark:bg-[#0b0e16]"
-      aria-labelledby="coming-soon-heading"
-      ref={ref}
-    >
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
+    <section className="py-24 md:py-30 bg-canvas" aria-labelledby="coming-soon-heading" ref={ref}>
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <SectionHeader
           eyebrow="On the horizon"
+          id="coming-soon-heading"
+          ghost="Next"
           title="What comes next"
           subtitle="These features are part of the Momento vision. They are not available yet, but they are on the way."
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {upcoming.map(({ icon, title, description }, i) => (
             <ComingSoonCard
               key={title}

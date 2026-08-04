@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { X, Check } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 
 const problems = [
@@ -14,102 +13,90 @@ const solutions = [
   'Export the final memory back to Apple Photos.',
 ]
 
+const entrance = [0.32, 0.72, 0, 1] as const
+
 export default function ProblemSolution() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const inView = useInView(sectionRef, { once: true, margin: '-60px' })
 
   return (
-    <section
-      className="py-24 md:py-28"
-      style={{ background: 'var(--alt-section-bg)' }}
-      aria-labelledby="problem-heading"
-    >
-      <div className="max-w-6xl mx-auto px-5 md:px-8" ref={sectionRef}>
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-lg mx-auto text-center mb-14"
-        >
-          <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">
-            The shift
-          </p>
-          <h2
-            id="problem-heading"
-            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-50 tracking-tight"
-          >
-            From chaos to clarity
-          </h2>
-        </motion.div>
+    <section className="py-24 md:py-30 bg-wash" aria-labelledby="problem-heading">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12" ref={sectionRef}>
+        <div className="flex items-center gap-3 mb-12">
+          <span className="tag">The shift</span>
+          <span className="rule flex-1" />
+          <span className="mono text-micro text-ink-3">02 / 04</span>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
-          {/* Problem */}
+        <motion.h2
+          id="problem-heading"
+          initial={{ opacity: 0, y: 28 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: entrance }}
+          className="display display-fade mb-12"
+          style={{ fontSize: 'clamp(56px, 9vw, 128px)' }}
+        >
+          From chaos to clarity
+        </motion.h2>
+
+        <div className="grid md:grid-cols-2 gap-3">
+          {/* Before */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-2xl p-7"
-            style={{
-              background: 'var(--problem-card-bg)',
-              border: '1px solid rgba(0,0,0,0.06)',
-              boxShadow: 'var(--card-shadow)',
-            }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.1, ease: entrance }}
+            className="card p-6"
           >
-            <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-7 h-7 rounded-lg bg-red-50 dark:bg-red-950/30 flex items-center justify-center">
-                <X size={14} className="text-red-400" strokeWidth={2.5} />
-              </div>
-              <h3 className="text-[13px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest">
-                Before
-              </h3>
+            <div className="flex items-center justify-between mb-6">
+              <span className="mono text-micro text-ink-3">Before</span>
+              <span className="mono text-micro text-ink-3">×</span>
             </div>
-            <ul className="flex flex-col gap-3.5">
+            <ul className="flex flex-col">
               {problems.map((p, i) => (
                 <motion.li
                   key={p}
                   initial={{ opacity: 0, x: -12 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-start gap-3"
+                  transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: entrance }}
+                  className="py-3 flex items-baseline gap-3"
+                  style={{ borderTop: '1px solid var(--s-line-soft)' }}
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-300 mt-2 flex-shrink-0" />
-                  <p className="text-gray-600 dark:text-gray-400 text-[15px] leading-snug">{p}</p>
+                  <span className="mono text-micro text-ink-3">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="text-body-sm text-ink-2">{p}</p>
                 </motion.li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Solution */}
+          {/* With Momento */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-2xl p-7"
-            style={{
-              background: 'var(--solution-card-bg)',
-              border: '1px solid var(--solution-card-border)',
-              boxShadow: 'var(--card-shadow)',
-            }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.18, ease: entrance }}
+            className="card p-6 bg-inverse"
           >
-            <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Check size={14} className="text-primary-dark" strokeWidth={2.5} />
-              </div>
-              <h3 className="text-[13px] font-semibold text-primary uppercase tracking-widest">
+            <div className="flex items-center justify-between mb-6">
+              <span className="tag-ghost">
+                <span className="accent-dot" style={{ width: 6, height: 6 }} />
                 With Momento
-              </h3>
+              </span>
             </div>
-            <ul className="flex flex-col gap-3.5">
+            <ul className="flex flex-col">
               {solutions.map((s, i) => (
                 <motion.li
                   key={s}
                   initial={{ opacity: 0, x: 12 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.28 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-start gap-3"
+                  transition={{ duration: 0.5, delay: 0.28 + i * 0.08, ease: entrance }}
+                  className="py-3 flex items-baseline gap-3"
+                  style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                  <p className="text-gray-700 dark:text-gray-200 text-[15px] leading-snug font-medium">{s}</p>
+                  <span className="mono text-micro" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="text-body-sm text-fog">{s}</p>
                 </motion.li>
               ))}
             </ul>

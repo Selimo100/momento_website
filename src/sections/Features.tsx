@@ -65,17 +65,19 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="py-24 md:py-32 bg-white dark:bg-[#0b0e16]"
+      className="py-24 md:py-30 bg-card"
       aria-labelledby="features-heading"
     >
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <SectionHeader
           eyebrow="Features"
+          id="features-heading"
+          ghost="Features"
           title="Everything a memory deserves"
           subtitle="Each feature in Momento is built around one idea: make your memories feel intentional, complete and worth revisiting."
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {features.map((feature, i) => (
             <FeatureCard
               key={feature.title}

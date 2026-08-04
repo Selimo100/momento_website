@@ -3,46 +3,158 @@
 /* Class-based dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ==========================================================================
+   Design system — brutalist type foundry, sage accent
+   Monochrome neutral ramp + a single chromatic note (sage).
+   Colors that flip between light/dark are declared as raw vars below and
+   referenced from @theme so every Tailwind utility is theme-aware.
+   ========================================================================== */
+
 @theme {
-  --color-primary: #a0c1b9;
+  /* --- Fixed neutral ramp (never flips) --- */
+  --color-sage: #a0c0b9;
+  --color-sage-deep: #7ca89e;
+  --color-onyx: #161616;
+  --color-graphite: #3c3a3e;
+  --color-stone: #7b7a7c;
+  --color-ash: #a2a2a2;
+  --color-silver-mist: #c9c7cc;
+  --color-fog: #f1f1f1;
+  --color-paper: #f8f8f8;
+  --color-pure-white: #ffffff;
+
+  /* --- Semantic, theme-aware --- */
+  --color-canvas: var(--s-canvas);
+  --color-card: var(--s-card);
+  --color-wash: var(--s-wash);
+  --color-inverse: var(--s-inverse);
+  --color-ink: var(--s-ink);
+  --color-ink-2: var(--s-ink-2);
+  --color-ink-3: var(--s-ink-3);
+  --color-line: var(--s-line);
+  --color-line-soft: var(--s-line-soft);
+
+  /* Legacy aliases — kept so stray `primary` utilities keep resolving */
+  --color-primary: #a0c0b9;
   --color-primary-light: #c8ddd9;
   --color-primary-dark: #7ca89e;
-  --color-surface: #f8faf9;
-  --color-surface-accent: #eef6f4;
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* --- Typography --- */
+  --font-sans:
+    "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-display: "Manrope", "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  /* The metadata voice: still a distinct, tighter register, but a soft sans
+     rather than a monospace slab */
+  --font-mono: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --text-micro: 12px;
+  --text-micro--line-height: 1.3;
+  --text-micro--letter-spacing: -0.01em;
+  --text-caption: 14px;
+  --text-caption--line-height: 1;
+  --text-caption--letter-spacing: -0.01em;
+  --text-body-sm: 17px;
+  --text-body-sm--line-height: 1.3;
+  --text-body-sm--letter-spacing: -0.01em;
+  --text-body: 21px;
+  --text-body--line-height: 1.1;
+  --text-body--letter-spacing: -0.02em;
+  --text-subheading: 23px;
+  --text-subheading--line-height: 1;
+  --text-subheading--letter-spacing: -0.005em;
+  --text-heading-sm: 36px;
+  --text-heading-sm--line-height: 1;
+  --text-heading-sm--letter-spacing: -0.03em;
+  --text-heading: 60px;
+  --text-heading--line-height: 1;
+  --text-heading--letter-spacing: -0.03em;
+  --text-heading-lg: 96px;
+  --text-heading-lg--line-height: 0.92;
+  --text-heading-lg--letter-spacing: -0.01em;
+  --text-heading-xl: 274px;
+  --text-heading-xl--line-height: 0.9;
+  --text-heading-xl--letter-spacing: -0.02em;
+  --text-display: 288px;
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.01em;
+
+  /* --- Spacing: 6px base. Tailwind's default 4px scale is left intact, so the
+     rhythm is expressed through its native steps: 1.5=6, 3=12, 4.5=18, 6=24,
+     12=48, 15=60, 18=72, 24=96, 30=120. --- */
+
+  /* --- Radius scale ---
+     sm    tags, compact labels
+     md    inputs and smaller controls
+     lg/xl cards and panels
+     2xl   large media frames and feature surfaces
+     full  pills, circular buttons, status dots only */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  /* Semantic aliases so components never reach for a raw value */
+  --radius-card: 16px;
+  --radius-media: 20px;
+
+  /* --- Motion --- */
+  --ease-entrance: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-morph: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Dark mode CSS vars (for inline styles / complex gradients) */
 :root {
-  --hero-bg: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(160,193,185,0.18) 0%, transparent 60%),
-             radial-gradient(ellipse 50% 50% at 10% 80%, rgba(160,193,185,0.10) 0%, transparent 60%),
-             #f8faf9;
-  --hero-grid-color: #111;
-  --alt-section-bg: linear-gradient(180deg, #eef6f4 0%, #f8faf9 100%);
-  --alt-section-bg2: linear-gradient(180deg, #f8faf9 0%, #eef6f4 60%, #f8faf9 100%);
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
-  --card-shadow-hover: 0 8px 30px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --problem-card-bg: #ffffff;
-  --solution-card-bg: linear-gradient(135deg, rgba(160,193,185,0.10) 0%, rgba(160,193,185,0.04) 100%);
-  --solution-card-border: rgba(160,193,185,0.4);
+  --s-canvas: #f8f8f8;
+  --s-card: #ffffff;
+  --s-wash: #f1f1f1;
+  --s-inverse: #161616;
+  --s-ink: #3c3a3e;
+  --s-ink-2: #7b7a7c;
+  --s-ink-3: #a2a2a2;
+  --s-line: #d5d4d8;
+  /* Card edges sit a step lower in contrast than structural rules */
+  --s-line-soft: rgba(60, 58, 62, 0.1);
+  /* The only elevation in the system: barely there, for separation alone */
+  --shadow-card:
+    0 1px 2px rgba(22, 26, 24, 0.03), 0 10px 24px -16px rgba(22, 26, 24, 0.12);
+  /* Solid badge / filled button pair — inverts with the theme */
+  --tag-bg: #161616;
+  --tag-fg: #f1f1f1;
+
+  /* Content-section fade: the same sage descent as the hero, pitched darker
+     at the top so headings stay legible on a light surface */
+  --display-fade: linear-gradient(
+    rgb(20, 32, 29),
+    rgb(52, 80, 73) 30%,
+    rgb(103, 143, 133) 70%,
+    rgb(140, 180, 170)
+  );
+  --horizon: linear-gradient(90deg, rgb(123, 122, 124), rgb(60, 58, 62));
 }
 
 .dark {
-  --hero-bg: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(160,193,185,0.08) 0%, transparent 60%),
-             radial-gradient(ellipse 50% 50% at 10% 80%, rgba(160,193,185,0.05) 0%, transparent 60%),
-             #0b0e16;
-  --hero-grid-color: #ffffff;
-  --alt-section-bg: linear-gradient(180deg, #0f1219 0%, #0b0e16 100%);
-  --alt-section-bg2: linear-gradient(180deg, #0b0e16 0%, #0f1219 60%, #0b0e16 100%);
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
-  --card-shadow-hover: 0 8px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
-  --glass-bg: rgba(14, 18, 28, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --problem-card-bg: #141820;
-  --solution-card-bg: linear-gradient(135deg, rgba(160,193,185,0.08) 0%, rgba(160,193,185,0.03) 100%);
-  --solution-card-border: rgba(160,193,185,0.2);
+  --s-canvas: #0e0e0e;
+  --s-card: #161616;
+  --s-wash: #131313;
+  --s-inverse: #000000;
+  --s-ink: #f1f1f1;
+  --s-ink-2: #a2a2a2;
+  --s-ink-3: #7b7a7c;
+  --s-line: rgba(255, 255, 255, 0.14);
+  --s-line-soft: rgba(255, 255, 255, 0.09);
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.18), 0 10px 24px -16px rgba(0, 0, 0, 0.5);
+  --tag-bg: #f1f1f1;
+  --tag-fg: #161616;
+
+  --display-fade: linear-gradient(
+    rgb(228, 241, 237),
+    rgb(190, 215, 208) 30%,
+    rgb(160, 192, 185) 65%,
+    rgb(112, 152, 142)
+  );
+  --horizon: linear-gradient(90deg, rgb(90, 89, 92), rgb(200, 199, 204));
 }
 
 html {
@@ -51,54 +163,250 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: #f8faf9;
+  font-weight: 500;
+  background-color: var(--s-canvas);
+  color: var(--s-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease;
-}
-
-.dark body {
-  background-color: #0b0e16;
+  transition: background-color 0.3s var(--ease-morph);
 }
 
 #root {
   min-height: 100vh;
 }
 
-/* Glass card utility */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
+@layer base {
+  /* Controls are rounded by default; .pill re-rounds the ones that are pills */
+  button {
+    border-radius: var(--radius-md);
+  }
+
+  input,
+  select,
+  textarea {
+    border-radius: var(--radius-md);
+  }
+
+  /* Media never shows a hard corner behind a rounded frame */
+  img,
+  video {
+    border-radius: inherit;
+  }
 }
 
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, #a0c1b9 0%, #5a9289 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+@layer components {
+  /* --------------------------------------------------------------------------
+     Type roles
+     -------------------------------------------------------------------------- */
 
-.dark .gradient-text-heading {
-  background: linear-gradient(135deg, #f0f2f8 0%, #a0c1b9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+  /* Monospaced system/data layer — always uppercase, always small */
+  .mono {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    text-transform: uppercase;
+    /* Feed Tailwind's tracking variable so a `text-micro` utility on the same
+       element inherits this value instead of overriding it */
+    --tw-tracking: 0.04em;
+    letter-spacing: 0.04em;
+  }
 
-/* Noise grain overlay */
-.grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 120px 120px;
-  opacity: 0.025;
-  pointer-events: none;
-}
+  /* Monument display face — 23px and up only, never body */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
 
-/* Scrollbar hidden utility */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  /* Black-to-light gradient fill — display scale only */
+  .display-fade {
+    background-image: var(--display-fade);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Hero fade — the signature: letters emerging from shadow into light,
+     carried in sage rather than grey. Fixed in both themes; only ever used on
+     the permanently dark surfaces. */
+  .display-fade-hero {
+    background-image: linear-gradient(
+      rgb(26, 38, 35),
+      rgb(76, 106, 98) 30%,
+      rgb(124, 168, 158) 55%,
+      rgb(160, 192, 185) 78%,
+      rgb(214, 232, 227)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Ghosted watermark title — near-invisible card-white on the section wash */
+  .display-ghost {
+    color: var(--s-card);
+  }
+
+  /* --------------------------------------------------------------------------
+     Components
+     -------------------------------------------------------------------------- */
+
+  /* Pill nav button */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: var(--radius-full);
+    border: 1px solid color-mix(in srgb, var(--s-ink) 15%, transparent);
+    background: transparent;
+    color: var(--s-ink);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    transition:
+      background-color 0.3s var(--ease-entrance),
+      border-color 0.3s var(--ease-entrance),
+      color 0.3s var(--ease-entrance);
+  }
+
+  .pill:hover {
+    background: color-mix(in srgb, var(--s-ink) 6%, transparent);
+    border-color: color-mix(in srgb, var(--s-ink) 30%, transparent);
+  }
+
+  /* Filled variant — the one solid interactive surface */
+  .pill-solid {
+    background: var(--tag-bg);
+    border-color: var(--tag-bg);
+    color: var(--tag-fg);
+  }
+
+  .pill-solid:hover {
+    background: color-mix(in srgb, var(--tag-bg) 85%, var(--tag-fg));
+    border-color: color-mix(in srgb, var(--tag-bg) 85%, var(--tag-fg));
+  }
+
+  /* Pills sitting on a permanently dark surface */
+  .pill-on-dark {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .pill-on-dark:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Accent-outlined pill — the primary action. The accent stays a hairline and
+     a dot, never a fill. */
+  .pill-accent {
+    border-color: color-mix(in srgb, var(--color-sage) 55%, transparent);
+    color: var(--color-sage);
+  }
+
+  .pill-accent:hover {
+    background: color-mix(in srgb, var(--color-sage) 10%, transparent);
+    border-color: var(--color-sage);
+  }
+
+  /* Solid tag badge — rectangular, not pill */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+  }
+
+  /* Ghost glass tag — for dark surfaces, reads as a watermark label */
+  .tag-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+  }
+
+  /* Sage status dot — the only place the accent stands alone */
+  .accent-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-sage);
+    flex-shrink: 0;
+  }
+
+  /* Soft card: rounded, hairline low-contrast border, whisper of elevation */
+  .card {
+    background: var(--s-card);
+    border: 1px solid var(--s-line-soft);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition:
+      transform 0.3s var(--ease-entrance),
+      border-color 0.3s var(--ease-entrance);
+  }
+
+  /* Larger panels and media surfaces */
+  .panel {
+    background: var(--s-card);
+    border: 1px solid var(--s-line-soft);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+  }
+
+  /* Media wrapper — always clips its contents */
+  .media {
+    border-radius: var(--radius-media);
+    overflow: hidden;
+  }
+
+  /* Hairline structural rule */
+  .rule {
+    height: 1px;
+    background: var(--s-line);
+    border: 0;
+  }
+
+  /* Ghost text link */
+  .ghost-link {
+    color: var(--s-ink);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--ease-entrance);
+  }
+
+  .ghost-link:hover {
+    border-bottom-color: var(--s-ink);
+  }
+
+  /* Scrollbar hidden utility */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

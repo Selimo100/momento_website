@@ -2,6 +2,7 @@ import Hero from '../sections/Hero'
 import Why from '../sections/Why'
 import ProblemSolution from '../sections/ProblemSolution'
 import Features from '../sections/Features'
+import Showcase from '../sections/Showcase'
 import UseCases from '../sections/UseCases'
 import PrivacyBadges from '../sections/PrivacyBadges'
 import HowItWorks from '../sections/HowItWorks'
@@ -15,6 +16,7 @@ export default function HomePage() {
       <Why />
       <ProblemSolution />
       <Features />
+      <Showcase />
       <UseCases />
       <PrivacyBadges />
       <HowItWorks />

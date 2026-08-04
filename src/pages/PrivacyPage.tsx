@@ -53,7 +53,7 @@ const stagger = {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.32, 0.72, 0, 1] as const } },
 }
 
 export default function PrivacyPage() {
@@ -62,52 +62,53 @@ export default function PrivacyPage() {
   }, [])
 
   return (
-    <main className="pt-28 pb-24 min-h-screen bg-surface dark:bg-[#0b0e16]">
-      <div className="max-w-3xl mx-auto px-5 md:px-8">
+    <main className="pt-[120px] pb-24 min-h-screen bg-canvas">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-14"
+          transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+          className="mb-24"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-accent dark:bg-primary/10 border border-primary/20 mb-5">
-            <ShieldCheck size={13} className="text-primary" />
-            <span className="text-xs font-semibold text-primary">Privacy policy</span>
+          <div className="flex items-center gap-3 mb-12">
+            <span className="tag">
+              <span className="accent-dot" style={{ width: 6, height: 6 }} />
+              Privacy policy
+            </span>
+            <span className="rule flex-1" />
+            <span className="mono text-micro text-ink-3">Updated 2026</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-50 tracking-tight mb-4">
+
+          <h1
+            className="display display-fade max-w-[16ch]"
+            style={{ fontSize: 'clamp(56px, 9vw, 128px)' }}
+          >
             Your privacy is the default
           </h1>
-          <p className="text-lg text-gray-500 dark:text-gray-400 leading-relaxed">
-            Momento was built with privacy as the foundation, not an afterthought. Here is exactly what we do, and what we do not do.
+          <p className="mt-12 text-body-sm md:text-body text-ink-2 max-w-[56ch]">
+            Momento was built with privacy as the foundation, not an afterthought. Here is exactly
+            what we do, and what we do not do.
           </p>
         </motion.div>
 
-        {/* Commitments */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="show"
-          className="flex flex-col gap-4 mb-14"
-        >
-          {commitments.map(({ icon: Icon, title, description }) => (
+        {/* Commitments — hairline rows, not cards */}
+        <motion.div variants={stagger} initial="hidden" animate="show" className="mb-24">
+          {commitments.map(({ icon: Icon, title, description }, i) => (
             <motion.div
               key={title}
               variants={fadeUp}
-              className="bg-white dark:bg-[#141820] rounded-2xl p-6 border border-gray-100 dark:border-white/[0.06] flex gap-4"
-              style={{ boxShadow: 'var(--card-shadow)' }}
+              className="grid gap-3 md:grid-cols-[64px_1fr_1fr] py-6 items-start"
+              style={{ borderTop: '1px solid var(--s-line)' }}
             >
-              <div className="w-10 h-10 rounded-xl bg-surface-accent dark:bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Icon size={18} className="text-primary" strokeWidth={1.75} />
+              <div className="flex items-center gap-3">
+                <span className="mono text-micro text-ink-3">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <Icon size={16} className="text-ink-3" strokeWidth={1.75} />
               </div>
-              <div>
-                <h2 className="text-[15px] font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                  {title}
-                </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                  {description}
-                </p>
-              </div>
+              <h2 className="text-body-sm text-ink max-w-[24ch]">{title}</h2>
+              <p className="text-micro text-ink-2 leading-[1.5] max-w-[56ch]">{description}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -117,23 +118,17 @@ export default function PrivacyPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="rounded-2xl p-6 border text-center"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(160,193,185,0.08) 0%, rgba(160,193,185,0.04) 100%)',
-            borderColor: 'rgba(160,193,185,0.3)',
-          }}
+          className="panel p-6 flex flex-col gap-3"
         >
-          <p className="text-gray-600 dark:text-gray-400 text-[15px] leading-relaxed">
+          <span className="tag-ghost self-start" style={{ background: 'transparent', borderColor: 'var(--s-line)', color: 'var(--s-ink-3)' }}>
+            Questions
+          </span>
+          <p className="text-body-sm text-ink-2 max-w-[56ch]">
             If you have any questions about privacy, please contact us at{' '}
-            <a
-              href="mailto:selimo.contact@gmail.com"
-              className="text-primary font-medium hover:underline"
-            >
+            <a href="mailto:selimo.contact@gmail.com" className="ghost-link">
               selimo.contact@gmail.com
             </a>
           </p>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-3">Last updated: 2026</p>
         </motion.div>
       </div>
     </main>
