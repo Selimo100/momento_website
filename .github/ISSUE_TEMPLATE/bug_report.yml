@@ -1,0 +1,86 @@
+name: Bug report
+description: Report something on the Momento website that is broken or behaves unexpectedly.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+
+        This tracker is for the **Momento website**. For problems with the Momento iOS app
+        itself, please use the contact address on the [support page](https://momento.mogicato.ch/#/support).
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What went wrong?
+      placeholder: The screenshot carousel on the showcase section does not advance.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      value: |
+        1. Go to '...'
+        2. Scroll to '...'
+        3. Click on '...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+
+  - type: input
+    id: page
+    attributes:
+      label: Affected page
+      description: Which route did this happen on?
+      placeholder: "/#/privacy"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      description: Does the issue depend on the colour theme?
+      options:
+        - Both / not theme related
+        - Light only
+        - Dark only
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, version, operating system and device.
+      placeholder: |
+        Browser: Safari 18.3
+        OS: macOS 15.3
+        Device: MacBook Air M2
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Screenshots, console output or additional context
+      description: Attach screenshots or paste browser console errors. Do not include personal data.
+    validations:
+      required: false

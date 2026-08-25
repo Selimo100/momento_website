@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrolled } from '../hooks/useScrolled'
-import { useTheme } from '../contexts/ThemeContext'
+import { useTheme } from '../contexts/theme'
 import momentoIcon from '../assets/momento_icon.png'
 
 function scrollTo(id: string) {

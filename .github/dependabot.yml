@@ -1,0 +1,42 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      react:
+        patterns:
+          - react
+          - react-dom
+          - react-router-dom
+          - "@types/react"
+          - "@types/react-dom"
+      build-tooling:
+        patterns:
+          - vite
+          - "@vitejs/*"
+          - tailwindcss
+          - "@tailwindcss/*"
+          - typescript
+      linting:
+        patterns:
+          - eslint
+          - "@eslint/*"
+          - eslint-plugin-*
+          - typescript-eslint
+          - globals
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: ci

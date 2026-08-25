@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Momento app support
+    url: https://momento.mogicato.ch/#/support
+    about: Questions or problems with the Momento iOS app itself, rather than the website.
+  - name: Report a security vulnerability
+    url: https://github.com/Selimo100/momento_website/security/advisories/new
+    about: Please disclose security issues privately instead of opening a public issue.
