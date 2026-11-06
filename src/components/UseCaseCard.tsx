@@ -25,7 +25,7 @@ export default function UseCaseCard({ title, description, label, index }: UseCas
       whileHover={{ y: -2, transition: { duration: 0.3, ease: entrance } }}
       className="group card p-6 cursor-default"
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <span className="mono text-micro text-ink-3">{label}</span>
         <span className="mono text-micro text-ink-3">
           {String(index + 1).padStart(2, '0')}

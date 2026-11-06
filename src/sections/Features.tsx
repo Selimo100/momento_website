@@ -65,7 +65,7 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="py-24 md:py-30 bg-card"
+      className="py-20 md:py-30 bg-card"
       aria-labelledby="features-heading"
     >
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">

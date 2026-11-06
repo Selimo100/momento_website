@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import DeviceFrame from "../components/DeviceFrame";
 import FitText from "../components/FitText";
 import phoneHome from "../assets/screens/iPhone_home.jpg";
+import AppStoreBadge from "../components/AppStoreBadge";
+import { APP_STORE_URL } from "../lib/appStore";
 
 function scrollTo(id: string) {
   document
@@ -47,23 +49,26 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative flex-1 flex flex-col max-w-[1400px] w-full mx-auto px-6 md:px-12 pt-[120px] pb-12">
+      <div className="relative flex-1 flex flex-col max-w-[1400px] w-full mx-auto px-6 md:px-12 pt-[100px] md:pt-[120px] pb-10 md:pb-12">
         {" "}
         {/* Metadata row */}
         <motion.div
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="flex flex-wrap items-center gap-1.5 mb-12"
+          className="flex flex-wrap items-center gap-1.5 mb-6 md:mb-12"
         >
-          <motion.span
+          <motion.a
             variants={rise}
             transition={{ duration: 0.6, ease: entrance }}
-            className="tag-ghost"
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tag-ghost hover:text-pure-white transition-colors"
           >
             <span className="accent-dot" style={{ width: 6, height: 6 }} />
-            Coming soon — iOS
-          </motion.span>
+            Now on the App Store
+          </motion.a>
           <motion.span
             variants={rise}
             transition={{ duration: 0.6, ease: entrance }}
@@ -89,7 +94,7 @@ export default function Hero() {
         {/* Monument headline */}
         <motion.div
           style={{ y: typeY }}
-          className="relative flex-1 flex min-h-[520px] items-center justify-center"
+          className="relative flex-1 flex min-h-[420px] sm:min-h-[460px] md:min-h-[max(440px,52vh)] xl:min-h-[520px] items-center justify-center"
         >
           <motion.div
             initial={{ opacity: 0, y: 48 }}
@@ -126,7 +131,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 0.35, duration: 0.9, ease: entrance }}
             >
-              <div className="scale-[0.5] sm:scale-[0.6] lg:scale-[0.72] xl:scale-[0.8] 2xl:scale-90">
+              <div className="scale-[0.5] sm:scale-[0.6] lg:scale-[0.62] xl:scale-[0.8] 2xl:scale-90 [@media(min-width:80rem)_and_(max-height:880px)]:!scale-[0.64]">
                 <DeviceFrame
                   src={phoneHome}
                   alt="The Momento app showing a list of saved moments"
@@ -141,7 +146,7 @@ export default function Hero() {
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="relative z-10 mt-12 grid gap-6 md:grid-cols-2 md:items-end"
+          className="relative z-10 mt-8 md:mt-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
           style={{
             borderTop: "1px solid rgba(255,255,255,0.15)",
             paddingTop: 24,
@@ -161,8 +166,9 @@ export default function Hero() {
           <motion.div
             variants={rise}
             transition={{ duration: 0.7, ease: entrance, delay: 0.6 }}
-            className="flex flex-wrap gap-1.5 md:justify-end"
+            className="flex flex-wrap items-center gap-1.5 lg:justify-end"
           >
+            <AppStoreBadge tone="light" className="mr-1.5" />
             <button
               onClick={() => scrollTo("features")}
               className="pill pill-accent cursor-pointer"

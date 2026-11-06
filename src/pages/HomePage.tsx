@@ -7,6 +7,7 @@ import UseCases from '../sections/UseCases'
 import PrivacyBadges from '../sections/PrivacyBadges'
 import HowItWorks from '../sections/HowItWorks'
 import Vision from '../sections/Vision'
+import Download from '../sections/Download'
 import ComingSoon from '../sections/ComingSoon'
 
 export default function HomePage() {
@@ -21,6 +22,7 @@ export default function HomePage() {
       <PrivacyBadges />
       <HowItWorks />
       <Vision />
+      <Download />
       <ComingSoon />
     </main>
   )

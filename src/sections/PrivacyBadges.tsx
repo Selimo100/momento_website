@@ -18,7 +18,7 @@ export default function PrivacyBadges() {
 
   return (
     <section
-      className="py-24 md:py-30 bg-onyx"
+      className="py-20 md:py-30 bg-onyx"
       aria-labelledby="privacy-section-heading"
       ref={ref}
     >

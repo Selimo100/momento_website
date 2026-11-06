@@ -72,14 +72,14 @@ export default function SupportPage() {
   }, [])
 
   return (
-    <main className="pt-[120px] pb-24 min-h-screen bg-canvas">
+    <main className="pt-[104px] md:pt-[120px] pb-16 md:pb-24 min-h-screen bg-canvas">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-          className="mb-24"
+          className="mb-16 md:mb-24"
         >
           <div className="flex items-center gap-3 mb-12">
             <span className="tag">
@@ -106,7 +106,7 @@ export default function SupportPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
-          className="panel p-6 mb-24 grid gap-6 md:grid-cols-[1fr_auto] md:items-center"
+          className="panel p-6 mb-16 md:mb-24 grid gap-6 md:grid-cols-[1fr_auto] md:items-center"
         >
           <div className="flex flex-col gap-1.5">
             <span className="mono text-micro text-ink-3 flex items-center gap-3">

@@ -10,7 +10,7 @@ export default function Vision() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section className="relative py-24 md:py-30 bg-wash overflow-hidden" aria-labelledby="vision-heading">
+    <section className="relative py-20 md:py-30 bg-wash overflow-hidden" aria-labelledby="vision-heading">
       {/* Ghosted watermark */}
       <span
         aria-hidden

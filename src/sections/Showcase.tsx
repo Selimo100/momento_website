@@ -47,7 +47,7 @@ export default function Showcase() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section className="py-24 md:py-30 bg-onyx" aria-labelledby="showcase-heading" ref={ref}>
+    <section className="py-20 md:py-30 bg-onyx" aria-labelledby="showcase-heading" ref={ref}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <div className="flex items-center gap-3 mb-12">
           <span className="tag-ghost">
@@ -73,7 +73,7 @@ export default function Showcase() {
       </div>
 
       {/* Full-bleed strip — the screen is the card, no chrome around it */}
-      <div className="overflow-x-auto no-scrollbar">
+      <div className="overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-px-6 md:scroll-px-12">
         <div className="flex gap-3 px-6 md:px-12 w-max mx-auto">
           {screens.map((screen, i) => (
             <motion.figure
@@ -81,7 +81,7 @@ export default function Showcase() {
               initial={{ opacity: 0, y: 32 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, delay: i * 0.08, ease: entrance }}
-              className="flex flex-col gap-6 w-[228px] shrink-0"
+              className="flex flex-col gap-6 w-[228px] shrink-0 snap-start"
             >
               <div className="media">
                 <DeviceFrame src={screen.src} alt={screen.alt} width={228} />

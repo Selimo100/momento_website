@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useScrolled } from '../hooks/useScrolled'
 import { useTheme } from '../contexts/theme'
 import momentoIcon from '../assets/momento_icon.png'
+import { APP_STORE_URL } from '../lib/appStore'
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -76,7 +77,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-1.5">
+        <div className="hidden lg:flex items-center gap-1.5">
           {navLinks.map((link) =>
             link.to ? (
               <Link key={link.label} to={link.to} className={pillClass}>
@@ -110,19 +111,34 @@ export default function Navbar() {
             </AnimatePresence>
           </button>
 
-          <span className={`pill ${onDark ? 'pill-on-dark' : ''} pointer-events-none`}>
+          <a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pill pill-accent"
+          >
             <motion.span
               className="accent-dot"
               style={{ width: 6, height: 6 }}
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            Soon on iOS
-          </span>
+            Get the app
+          </a>
         </div>
 
         {/* Mobile right side */}
-        <div className="md:hidden flex items-center gap-1.5">
+        <div className="lg:hidden flex items-center gap-1.5">
+          <a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pill pill-accent h-[30px] !py-0"
+          >
+            <span className="accent-dot" style={{ width: 6, height: 6 }} />
+            <span className="sm:hidden">Get</span>
+            <span className="hidden sm:inline">Get the app</span>
+          </a>
           <button
             onClick={toggle}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -149,7 +165,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
-            className="md:hidden overflow-hidden bg-canvas"
+            className="lg:hidden overflow-hidden bg-canvas"
             style={{ borderTop: '1px solid var(--s-line)' }}
           >
             <div className="px-6 py-12 flex flex-col items-start gap-6">
@@ -178,10 +194,16 @@ export default function Navbar() {
                   </button>
                 )
               )}
-              <span className="mono text-micro text-ink-3 flex items-center gap-1.5">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-accent"
+                onClick={() => setMenuOpen(false)}
+              >
                 <span className="accent-dot" style={{ width: 6, height: 6 }} />
-                Soon on iOS
-              </span>
+                Download on the App Store
+              </a>
             </div>
           </motion.div>
         )}

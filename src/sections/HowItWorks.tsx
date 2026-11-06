@@ -48,7 +48,7 @@ function StepCard({ icon: Icon, number, title, description, index, inView }: Ste
       transition={{ duration: 0.65, delay: index * 0.1, ease: entrance }}
       className="card p-6"
     >
-      <div className="flex items-center justify-between mb-12">
+      <div className="flex items-center justify-between mb-6 sm:mb-12">
         <span className="display text-heading-sm text-ink">{number}</span>
         <Icon size={18} className="text-ink-3" strokeWidth={1.5} />
       </div>
@@ -63,7 +63,7 @@ export default function HowItWorks() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section id="how-it-works" className="py-24 md:py-30 bg-card" aria-labelledby="how-heading">
+    <section id="how-it-works" className="py-20 md:py-30 bg-card" aria-labelledby="how-heading">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <div className="flex items-center gap-3 mb-12" ref={ref}>
           <span className="tag">How it works</span>

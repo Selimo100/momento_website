@@ -48,7 +48,7 @@ export default function UseCases() {
   return (
     <section
       id="use-cases"
-      className="py-24 md:py-30 bg-wash"
+      className="py-20 md:py-30 bg-wash"
       aria-labelledby="use-cases-heading"
     >
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">

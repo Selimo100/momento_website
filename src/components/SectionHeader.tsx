@@ -28,7 +28,7 @@ export default function SectionHeader({
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <div className="relative mb-12">
+    <div className="relative mb-12 overflow-x-clip">
       {ghost && (
         <span
           aria-hidden

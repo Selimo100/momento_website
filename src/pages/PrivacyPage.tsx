@@ -62,14 +62,14 @@ export default function PrivacyPage() {
   }, [])
 
   return (
-    <main className="pt-[120px] pb-24 min-h-screen bg-canvas">
+    <main className="pt-[104px] md:pt-[120px] pb-16 md:pb-24 min-h-screen bg-canvas">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-          className="mb-24"
+          className="mb-16 md:mb-24"
         >
           <div className="flex items-center gap-3 mb-12">
             <span className="tag">
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
         </motion.div>
 
         {/* Commitments — hairline rows, not cards */}
-        <motion.div variants={stagger} initial="hidden" animate="show" className="mb-24">
+        <motion.div variants={stagger} initial="hidden" animate="show" className="mb-16 md:mb-24">
           {commitments.map(({ icon: Icon, title, description }, i) => (
             <motion.div
               key={title}

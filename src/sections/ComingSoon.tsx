@@ -53,7 +53,7 @@ function ComingSoonCard({ icon: Icon, title, description, index, inView }: Comin
       transition={{ duration: 0.6, delay: col * 0.08, ease: [0.32, 0.72, 0, 1] }}
       className="card p-6 flex flex-col"
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <Icon size={18} className="text-ink-3" strokeWidth={1.75} />
         <span className="tag-ghost" style={{ background: 'transparent', borderColor: 'var(--s-line-soft)', color: 'var(--s-ink-3)' }}>
           Soon
@@ -70,7 +70,7 @@ export default function ComingSoon() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section className="py-24 md:py-30 bg-canvas" aria-labelledby="coming-soon-heading" ref={ref}>
+    <section className="py-20 md:py-30 bg-canvas" aria-labelledby="coming-soon-heading" ref={ref}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <SectionHeader
           eyebrow="On the horizon"

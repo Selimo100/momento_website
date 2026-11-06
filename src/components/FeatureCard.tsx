@@ -25,7 +25,7 @@ export default function FeatureCard({ icon: Icon, title, description, index }: F
       whileHover={{ y: -2, transition: { duration: 0.3, ease: entrance } }}
       className="group card p-6 flex flex-col cursor-default"
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <Icon size={18} className="text-ink-2" strokeWidth={1.75} />
         <span className="mono text-micro text-ink-3">
           {String(index + 1).padStart(2, '0')}
@@ -36,7 +36,7 @@ export default function FeatureCard({ icon: Icon, title, description, index }: F
       <p className="text-micro text-ink-2 leading-[1.4]">{description}</p>
 
       {/* Alive signal on hover — the sole chromatic note */}
-      <span className="accent-dot mt-4.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <span className="accent-dot mt-4.5 hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </motion.div>
   )
 }

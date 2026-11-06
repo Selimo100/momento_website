@@ -8,7 +8,7 @@ export default function Why() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section className="py-24 md:py-30 bg-canvas" aria-labelledby="why-heading">
+    <section className="py-20 md:py-30 bg-canvas" aria-labelledby="why-heading">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <motion.div
           ref={ref}

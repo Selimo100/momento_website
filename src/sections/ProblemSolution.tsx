@@ -20,7 +20,7 @@ export default function ProblemSolution() {
   const inView = useInView(sectionRef, { once: true, margin: '-60px' })
 
   return (
-    <section className="py-24 md:py-30 bg-wash" aria-labelledby="problem-heading">
+    <section className="py-20 md:py-30 bg-wash" aria-labelledby="problem-heading">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12" ref={sectionRef}>
         <div className="flex items-center gap-3 mb-12">
           <span className="tag">The shift</span>
